@@ -1,0 +1,32 @@
+<h2>{{ question.title }}</h2>
+<p>{{ question.content }}</p>
+<small>By {{ question.user.username }} on {{ question.created_at }}</small>
+
+<hr>
+
+<h3>Answers:</h3>
+<ul>
+  {% for answer in answers %}
+    <li>
+      {{ answer.content }}<br>
+      <small>— {{ answer.user.username }} on {{ answer.created_at }}</small>
+      <form method="post" action="{% url 'like_answer' answer.id %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">Like ({{ answer.like_count }})</button>
+      </form>
+    </li>
+  {% empty %}
+    <li>No answers yet.</li>
+  {% endfor %}
+</ul>
+
+<hr>
+
+<h3>Submit Your Answer:</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Post Answer</button>
+</form>
+
+<a href="{% url 'home' %}">Back to Home</a>

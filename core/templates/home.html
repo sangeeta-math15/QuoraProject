@@ -1,0 +1,14 @@
+<h2>All Questions</h2>
+<a href="{% url 'ask_question' %}">Ask a Question</a> |
+<a href="{% url 'logout' %}">Logout</a>
+
+<ul>
+  {% for question in questions %}
+    <li>
+      <strong>{{ question.title }}</strong><br>
+      {{ question.content }}<br>
+      <small>By {{ question.user.username }} on {{ question.created_at }}</small><br>
+      <a href="{% url 'question_detail' question.id %}">View Answers</a>
+    </li>
+  {% endfor %}
+</ul>
